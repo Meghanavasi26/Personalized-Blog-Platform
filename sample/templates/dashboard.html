@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            background-image: url('bg2.jpg'); /* Add your background image URL here */
+            background-size: cover;
+            background-position: center;
+            color: black; /* Set text color to white for better visibility */
+            text-align: center; /* Center align text */
+        }
+        .button-container {
+            display: flex;
+            flex-direction: row; /* Align buttons horizontally */
+            gap: 10px; /* Add some space between buttons */
+            margin-top: 20px; /* Add margin to separate buttons from text */
+        }
+        button {
+            /* margin-top: 10px; Remove margin top */
+        }
+        h2 {
+            font-size: 50px; /* Increase font size of welcome text */
+        }
+    </style>
+</head>
+<body>
+    <h2>Welcome {{name}}</h2>
+    <div class="button-container">
+        <button type="submit"><a href="{{ url_for('blog') }}">Start your blog</a></button>
+        <button type="submit"><a href="{{ url_for('viewblog') }}">View your blog</a></button>
+    </div>
+</body>
+</html>
