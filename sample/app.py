@@ -45,6 +45,7 @@ def dashboard():
         login_user = user.find_one({'name' : request.form['name']})
         name=request.form['name']
         session["uname"]=name
+        session["email"]=email
         if login_user:
             if check_password_hash(login_user['password'], request.form['password']):
                 return render_template('dashboard.html',name=name)
@@ -56,6 +57,19 @@ def dashboard():
         if "uname"in session:
             name=session["uname"]
             return render_template("dashboard.html", name= name)    
+
+
+@app.route('/launch',methods=['GET','POST'])
+def launchblog():
+    if request.method=='POST':
+        name=session["uname"]
+        title = request.form.get('title')
+        content = request.form.get('content')
+        data = {'label': title, 'content': content}
+        query={'email':email}
+        doc ={'$set':{'blog':data}}
+        mongo.db.user.update_one(query,doc,upsert=True)
+    return render_template('dashboard.html',name=name)
 
 
 @app.route('/about',methods=['GET','POST'])
