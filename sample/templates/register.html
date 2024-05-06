@@ -103,13 +103,13 @@
             <input type="password" id="password" name="password" required>
             <span id="password-error" class="error"></span>
 
-            <button id="register-btn">Register</button>
+            <button id="register-btn" type="submit">Register</button>
         </form>
         <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
-        <div id="success-msg" class="success-msg" style="display: none;">Registered Successfully!</div>
+        <!-- <div id="success-msg" class="success-msg" style="display: none;">Registered Successfully!</div> -->
     </div>
 
-    <script>
+    <!-- <script>
         // Get the form and success message elements
         const registerForm = document.getElementById('register');
         const successMsg = document.getElementById('success-msg');
@@ -125,7 +125,7 @@
             // Optional: You can also redirect the user to another page after registration
             // window.location.href = '/registration-successful';
         });
-    </script>
+    </script> -->
 </body>
 
 </html>

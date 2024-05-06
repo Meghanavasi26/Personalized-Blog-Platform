@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for,session
 from flask_pymongo import PyMongo
+from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
+app.secret_key="Meghana123"
 app.config["MONGO_URI"] = "mongodb://localhost:27017/sample"
 mongo =PyMongo(app)
 # Dummy user database
@@ -9,45 +11,64 @@ mongo =PyMongo(app)
 @app.route('/',methods=["GET","POST"])
 def home():
     
-    if request.method=='POST':
-        name=request.form['name']
-        phone_no=request.form['phone']
-        email=request.form['email']
-        password=request.form['password']
-        
-        mongo.db.user.insert_one({"name":name,"phone_no":phone_no,"email":email,"password":password})
-        return render_template('home.html')
-    return render_template('home.html')
+   if request.method=='POST':
+        existing_user = mongo.db.user.find_one({'name': request.form['name']})
+        if existing_user is None:
+            name=request.form['name']
+            phone_no=request.form['phone']
+            email=request.form['email']
+            hash_pass = generate_password_hash(request.form['password'], method='pbkdf2:sha256')
+            query={'name':name}
+            doc ={'$set':{'email':email,'name':name,"phone_no":phone_no,"password":hash_pass}}
+            mongo.db.user.update_one(query,doc,upsert=True)
+            # mongo.db.user.insert_one({"name":name,"phone_no":phone_no,"email":email,"password":hash_pass})
+            return render_template('home.html')
+        else:
+            return 'User already exists!'
+   else:
+            return render_template('home.html')
 
 @app.route('/register')
 def register():
    
     return render_template('register.html')
 
-@app.route('/login',methods=['GET','POST'])
+@app.route('/login')
 def login():
-    # if request.method=="GET":
-        # password=request.form["password"] 
-        # python app.py
-        # name=request.form["name"] 
-        
         return render_template('login.html')
         
 
 @app.route('/dashboard',methods=['GET','POST'])
 def dashboard():
-   
-    return render_template('login.html')
+    if request.method=="POST":
+        user = mongo.db.user
+        login_user = user.find_one({'name' : request.form['name']})
+        name=request.form['name']
+        session["uname"]=name
+        if login_user:
+            if check_password_hash(login_user['password'], request.form['password']):
+                return render_template('dashboard.html',name=name)
+            else:
+                return "Invalid username/password combination"
+        else:
+            return 'Username not found'
+    else:
+        if "uname"in session:
+            name=session["uname"]
+            return render_template("dashboard.html", name= name)    
+
 
 @app.route('/about',methods=['GET','POST'])
 def about():
-   
     return render_template('about.html')
 
+@app.route('/blog',methods=['GET','POST'])
+def blog():
+    return render_template('blog.html')
 
-
-
-
+@app.route('/viewblog',methods=['GET','POST'])
+def viewblog():
+    return render_template('viewblog.html')
 
 
 if __name__ == '__main__':

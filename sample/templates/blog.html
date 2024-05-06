@@ -11,7 +11,7 @@
             align-items: center;
             height: 100vh;
             flex-direction: column;
-            background-image: url('your_image.jpg'); /* Replace 'your_image.jpg' with the path to your background image */
+            background-image: url('/static/bg2.jpg'); /* Replace 'your_image.jpg' with the path to your background image */
             background-size: cover; /* Cover the entire background */
             background-position: center; /* Center the background image */
         }
@@ -47,7 +47,7 @@
 </head>
 <body>
     <h1>Write a Blog Post</h1>
-    <form action="{{ url_for('bg2.jpg') }}" method="POST">
+    <form action="/dashboard" >
         <div>
             <label for="title">Name your blog</label>
             <input type="text" id="title" name="title" required>
@@ -57,6 +57,10 @@
             <textarea id="content" name="content" rows="8" required></textarea>
         </div>
         <button type="submit">Launch your blog</button>
+        <a href="/dashboard">
+            <button type="button">Back</button>
+        </a>
+        
     </form>
 </body>
 </html>

@@ -11,7 +11,7 @@
             align-items: center;
             height: 100vh;
             flex-direction: column;
-            background-image: url('bg2.jpg'); /* Add your background image URL here */
+            background-image: url('/static/bg2.jpg'); /* Add your background image URL here */
             background-size: cover;
             background-position: center;
             color: black; /* Set text color to white for better visibility */
@@ -34,8 +34,8 @@
 <body>
     <h2>Welcome {{name}}</h2>
     <div class="button-container">
-        <button type="submit"><a href="{{ url_for('blog') }}">Start your blog</a></button>
-        <button type="submit"><a href="{{ url_for('viewblog') }}">View your blog</a></button>
+        <button type="submit"><a href="/blog">Start your blog</a></button>
+        <button type="submit"><a href="/viewblog">View your blog</a></button>
     </div>
 </body>
 </html>
