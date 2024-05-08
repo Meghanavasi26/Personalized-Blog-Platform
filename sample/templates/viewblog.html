@@ -8,12 +8,14 @@
 <body>
     <h1>View Blogs</h1>
     <div>
+        {% if blog}
         {% for blog in blogs %}
         <div>
-            <h2>{{ blog['title'] }}</h2>
-            <p>{{ blog['content'] }}</p>
+            <h2>{{ blog['label'] }}</h2>
+            <p>{{ blog['content']}}</p>
         </div>
         {% endfor %}
+        {% endif %}
     </div>
 </body>
 </html>

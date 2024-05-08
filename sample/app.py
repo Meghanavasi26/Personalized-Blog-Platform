@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for,session
+from flask import Flask, render_template, request,session,flash
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
@@ -42,17 +42,22 @@ def login():
 def dashboard():
     if request.method=="POST":
         user = mongo.db.user
-        login_user = user.find_one({'name' : request.form['name']})
-        name=request.form['name']
-        session["uname"]=name
-        session["email"]=email
-        if login_user:
-            if check_password_hash(login_user['password'], request.form['password']):
+        login_email = user.find_one({'email' : request.form['email']})
+        
+        # email = user.find_one({'name' : name})
+        # session["email"]=email['email']
+        # session['email']=login_email
+        # print(login_email)
+        if login_email:
+            if check_password_hash(login_email['password'], request.form['password']):
+                session['email']=request.form['email']
+                name=login_email['name']
+                session["uname"]=name
                 return render_template('dashboard.html',name=name)
             else:
                 return "Invalid username/password combination"
         else:
-            return 'Username not found'
+            return 'Username not found.Please Register'
     else:
         if "uname"in session:
             name=session["uname"]
@@ -63,11 +68,12 @@ def dashboard():
 def launchblog():
     if request.method=='POST':
         name=session["uname"]
+        email=session["email"]
         title = request.form.get('title')
         content = request.form.get('content')
         data = {'label': title, 'content': content}
         query={'email':email}
-        doc ={'$set':{'blog':data}}
+        doc ={'$push':{'blog':data}}
         mongo.db.user.update_one(query,doc,upsert=True)
     return render_template('dashboard.html',name=name)
 
@@ -82,8 +88,14 @@ def blog():
 
 @app.route('/viewblog',methods=['GET','POST'])
 def viewblog():
-    return render_template('viewblog.html')
-
+    user=mongo.db.user.find_one({'email':session["email"]})
+    result = mongo.db.user.find_one({'email':session["email"], 'blog': {'$exists': True}})
+    if result:
+        blog=user['blog']
+        return render_template('viewblog.html',blogs=blog)
+    else:
+        flash("No blogs yet")
+        return render_template("dashboard.html",name=session['uname'])
 
 if __name__ == '__main__':
     app.run(debug=True)

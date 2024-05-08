@@ -1,66 +1,71 @@
-pip<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blog Page</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-            background-image: url('/static/bg2.jpg'); /* Replace 'your_image.jpg' with the path to your background image */
-            background-size: cover; /* Cover the entire background */
-            background-position: center; /* Center the background image */
-        }
-        form {
-            width: 50%; /* Adjust width as needed */
-            max-width: 600px; /* Set maximum width */
-        }
-        div {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input[type="text"],
-        textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            text-decoration: none;
-        }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+        background-image: url("/static/bg2.jpg"); /* Replace 'your_image.jpg' with the path to your background image */
+        background-size: cover; /* Cover the entire background */
+        background-position: center; /* Center the background image */
+      }
+      form {
+        width: 50%; /* Adjust width as needed */
+        max-width: 600px; /* Set maximum width */
+      }
+      div {
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      input[type="text"],
+      textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        text-decoration: none;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Write a Blog Post</h1>
-    <form action="/launch" >
-        <div>
-            <label for="title">Name your blog</label>
-            <input type="text" id="title" name="title" required>
-        </div>
-        <div>
-            <label for="content">Write your post</label>
-            <textarea id="content" name="content" rows="8" required></textarea>
-        </div>
-        <button type="submit">Launch your blog</button>
-        <a href="/dashboard">
-            <button type="button">Back</button>
-        </a>
-        
+    <form action="/launch" method="POST">
+      <div>
+        <label for="title">Name your blog</label>
+        <input type="text" id="title" name="title" required />
+      </div>
+      <div>
+        <label for="content">Write your post</label>
+        <textarea id="content" name="content" rows="8" required></textarea>
+      </div>
+      <button type="submit" onclick="launchBlog()">Launch your blog</button>
+
+      <script>
+        function launchBlog() {
+          alert("Blog Launched successfully");
+        }
+      </script>
+      <a href="/dashboard">
+        <button type="button">Back</button>
+      </a>
     </form>
-</body>
+  </body>
 </html>
