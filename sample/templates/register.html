@@ -10,7 +10,7 @@
         body {
             font-family: Arial, sans-serif; /* Change font family */
             text-align: center; /* Center align the content */
-            background-image: url('/static/bg1.jpeg'); /* Set background image */
+            background-image: url('/static/bgr.jpeg'); /* Set background image */
             background-size: cover; /* Cover the entire viewport */
             
             margin: 0; /* Remove default margin */
@@ -26,16 +26,31 @@
             z-index: -1; /* Set z-index lower than content */
         }
 
+        .form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 7%;
+        }
+
         .form1 {
-            width: 400px; /* Set width for form container */
-            margin: 0 auto; /* Center align horizontally */
-            padding: 20px; /* Add padding */
+            width: 400px;
+            /* Set width for form container */
+           /* Center align horizontally */
+            padding: 20px;
+            
+            /* Add padding */
             background-color: rgba(255, 255, 255, 0.8); /* Add background color with opacity */
             border-radius: 10px; /* Add border radius */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add shadow */
             text-align: left; /* Left align form elements */
             position: relative; /* Set form position to relative */
             z-index: 1; /* Set z-index higher than background image */
+        }
+
+        .form1 h1 {
+            text-align: center;
+
         }
 
         label {
@@ -48,9 +63,9 @@
         input[type="tel"],
         input[type="email"],
         input[type="password"] {
-            width: 100%; /* Make inputs full-width */
-            padding: 10px; /* Add padding */
-            margin-bottom: 15px; /* Add bottom margin */
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px; 
             border-radius: 5px; /* Add border radius */
             border: 1px solid #ccc; /* Add border */
         }
@@ -84,11 +99,9 @@
 </head>
 
 <body>
-    <div class="bg-image">
-        <img src="bg1.jpeg" alt="Background Image" style="width: 100%; height: 100%;">
-    </div>
-    <div class="form1">
-        <h1>Register</h1>
+    <div class="form"> 
+        <div class="form1">
+          <h1>Create an Account</h1>
         <form id="register" method="POST" action="/">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" required>
@@ -103,29 +116,13 @@
             <input type="password" id="password" name="password" required>
             <span id="password-error" class="error"></span>
 
-            <button id="register-btn" type="submit">Register</button>
+            <button id="register-btn" type="submit">Create</button>
         </form>
         <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
         <!-- <div id="success-msg" class="success-msg" style="display: none;">Registered Successfully!</div> -->
+      </div>
     </div>
 
-    <!-- <script>
-        // Get the form and success message elements
-        const registerForm = document.getElementById('register');
-        const successMsg = document.getElementById('success-msg');
-
-        // Add event listener to the form submission
-        registerForm.addEventListener('submit', function (event) {
-            // Prevent the default form submission
-            event.preventDefault();
-
-            // Show the success message
-            successMsg.style.display = 'block';
-
-            // Optional: You can also redirect the user to another page after registration
-            // window.location.href = '/registration-successful';
-        });
-    </script> -->
 </body>
 
 </html>

@@ -98,4 +98,4 @@ def viewblog():
         return render_template("dashboard.html",name=session['uname'])
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True) 

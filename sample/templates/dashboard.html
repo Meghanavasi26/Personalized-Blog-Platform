@@ -11,7 +11,7 @@
             align-items: center;
             height: 100vh;
             flex-direction: column;
-            background-image: url('/static/bg2.jpg'); /* Add your background image URL here */
+            background-image: url('/static/bg_1.jpeg'); /* Add your background image URL here */
             background-size: cover;
             background-position: center;
             color: black; /* Set text color to white for better visibility */
@@ -40,11 +40,14 @@
     <a href="/viewblog">
         <button type="button">View Your blog</button>
     </a></div>
+    <a href="/">
+        <button type="button">Logout</button>
+    </a></div>
     {% with messages = get_flashed_messages() %}
   {% if messages %}
     <ul class=flashes>
     {% for message in messages %}
-      <li>{{ message }}</li>
+      <script>alert("{{messages[0]}}")</script>
     {% endfor %}
     </ul>
   {% endif %}

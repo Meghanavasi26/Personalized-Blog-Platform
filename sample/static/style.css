@@ -1,5 +1,5 @@
 body {
-    background-image: url('/static/blog.jpg');
+    background-image: url('/static/background.jpeg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100%;
@@ -16,7 +16,11 @@ body {
     padding: 10px 0;
     text-align: center;
 }
-
+.bg a
+{
+color:white;
+text-decoration: none;
+}
 .navbar ul {
     list-style-type: none;
     padding: 0;
@@ -74,7 +78,8 @@ body {
     padding: 5px 10px;
     border-radius: 50%;
 }
-.content h1,
-.content p {
+.content  {
+    font-size: large;
+    margin-top: 18%;
     font-weight: bold;
 }
