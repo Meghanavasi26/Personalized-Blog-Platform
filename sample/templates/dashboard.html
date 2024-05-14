@@ -7,51 +7,74 @@
     <style>
         body {
             display: flex;
+
             justify-content: center;
             align-items: center;
             height: 100vh;
             flex-direction: column;
-            background-image: url('/static/bg_1.jpeg'); /* Add your background image URL here */
+            background-image: url('/static/bg_1.jpeg');
             background-size: cover;
             background-position: center;
-            color: black; /* Set text color to white for better visibility */
-            text-align: center; /* Center align text */
+            color: black;
+            text-align: center;
+            position: relative; /* Ensure relative positioning for containing element */
         }
         .button-container {
             display: flex;
-            flex-direction: row; /* Align buttons horizontally */
-            gap: 10px; /* Add some space between buttons */
-            margin-top: 20px; /* Add margin to separate buttons from text */
+            flex-direction: row;
+            gap: 10px;
+            margin-top: 20px;
+            /* background-color: rgba(236, 142, 197, 0.517); */
+            padding: 10px 20px;
+           
         }
-        /* button {
-            margin-top: 10px; Remove margin top
-        } */
+        
+        .button-container button{
+            background-color: rgba(236, 142, 197, 0.517);
+            /* color: aliceblue; */
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+
         h2 {
-            font-size: 50px; /* Increase font size of welcome text */
+            font-size: 50px;
+        }
+        .logout-btn button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(236, 142, 197, 0.517);
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
     <h2>Welcome {{name}}</h2>
     <div class="button-container">
-    <a href="/blog">
-        <button type="button">Start Your blog</button>
-    </a>
-    <a href="/viewblog">
-        <button type="button">View Your blog</button>
-    </a></div>
-    <a href="/">
+        <a href="/blog">
+            <button type="button">Start Your blog</button>
+        </a>
+        <a href="/viewblog">
+            <button type="button">View Your blog</button>
+        </a>
+    </div>
+    <a href="/" class="logout-btn"> <!-- Add the 'logout-btn' class here -->
         <button type="button">Logout</button>
-    </a></div>
+    </a>
     {% with messages = get_flashed_messages() %}
-  {% if messages %}
+    {% if messages %}
     <ul class=flashes>
-    {% for message in messages %}
-      <script>alert("{{messages[0]}}")</script>
-    {% endfor %}
+        {% for message in messages %}
+        <script>alert("{{messages[0]}}")</script>
+        {% endfor %}
     </ul>
-  {% endif %}
-{% endwith %}
-
+    {% endif %}
+    {% endwith %}
 </body>
 </html>

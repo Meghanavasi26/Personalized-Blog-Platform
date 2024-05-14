@@ -61,7 +61,10 @@ def dashboard():
     else:
         if "uname"in session:
             name=session["uname"]
-            return render_template("dashboard.html", name= name)    
+            return render_template("dashboard.html", name= name) 
+
+
+   
 
 
 @app.route('/launch',methods=['GET','POST'])
