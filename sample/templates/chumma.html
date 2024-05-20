@@ -1,116 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WELCOME TO BLOG PLATFORM</title>
-    
- 
-    
-    <style>
-        /* Add your custom CSS styles here */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        .navbar {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
-
-        .navbar ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .navbar ul li {
-            display: inline;
-            margin-right: 20px;
-        }
-
-        .navbar-logo {
-            width: 50px;
-            height: 50px;
-            margin-top: 10px;
-        }
-
-        .showcase {
-            position: relative;
-            height: 400px;
-        }
-
-        .showcase img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .showcase .content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: #fff;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .center {
-            text-align: center;
-        }
-
-        .bg-light {
-            background-color: #f9f9f9;
-            padding: 20px 0;
-        }
-
-        .bg-dark {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 0;
-        }
-
-        .badge {
-            background-color: #4CAF50;
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 50%;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-
 <body>
-    <!-- Navbar -->
-    <div class="navbar">
-        <ul>
-            <li><a href="/register">REGISTER</a></li>
-            <li><a href="/login">LOGIN</a></li>
-            <li><a href="about.html">ABOUT US</a></li>
-            <li><a href="#home">HOME</a></li>
-        </ul>
-        <img src="" class="navbar-logo" alt="FeedOn">
-    </div>
+    <div class="container">
+        <h2>Login</h2>
+        <form id="loginForm" action="/login" method="POST">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
 
-    <!-- Heading -->
-    <header class="showcase">
-        <img src="blog.jpg" alt="Background Image">
-        <div class="content">
-            <h1>Welcome to Our Blog Platform</h1>
-            <p>Share your thoughts, experiences, and stories with the world.</p>
-            <a href="#about" class="btn">Learn More</a>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+        <div id="forgotPassword">
+            <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
         </div>
-    </header>
-</body>
+        <div id="forgotPasswordForm" style="display: none;">
+            <label for="forgotEmail">Enter your email:</label>
+            <input type="email" id="forgotEmail" name="forgotEmail" required>
 
+            <button onclick="sendOTP()">Send OTP</button>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
 </html>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;      
+}
+
+button:hover {
+    background-color: #45a049;
+}
+</style>
+<script>
+   showForgotPassword() {
+    document.getElementById('forgotPassword').style.display = 'none';
+    document.getElementById('forgotPasswordForm').style.display = 'block';
+}
+
+function sendOTP() {
+    const email = document.getElementById('forgotEmail').value;
+    fetch('/send_otp', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: email })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+</script>
+
