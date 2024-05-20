@@ -126,6 +126,11 @@
             <button id="register-btn" type="submit">Create</button>
         </form>
         <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+        <script>
+            function showPopup() {
+                alert("Account created successfully!");
+            }
+        </script>
         <!-- <div id="success-msg" class="success-msg" style="display: none;">Registered Successfully!</div> -->
       </div>
     </div>
