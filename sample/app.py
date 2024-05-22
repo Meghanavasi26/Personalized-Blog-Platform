@@ -1,18 +1,27 @@
 from flask import Flask, render_template, request,session,flash
-from flask_pymongo import PyMongo
+from flask_pymongo import PyMongo,MongoClient
+import os
 from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 app.secret_key="Meghana123"
 app.config["MONGO_URI"] = "mongodb://localhost:27017/sample"
 mongo =PyMongo(app)
-# Dummy user database
-#users = {'username': 'password'}
+from dotenv import load_dotenv
+
+
+def config():
+    load_dotenv()
+
+
+app.config["MONGO_URI"] = os.getenv('mongo_url')
+client=MongoClient(os.getenv('mongo_url'))
+db=client['Blog']
 
 @app.route('/',methods=["GET","POST"])
 def home():
     
    if request.method=='POST':
-        existing_user = mongo.db.user.find_one({'name': request.form['name']})
+        existing_user = db.user.find_one({'name': request.form['name']})
         if existing_user is None:
             name=request.form['name']
             phone_no=request.form['phone']
@@ -20,7 +29,7 @@ def home():
             hash_pass = generate_password_hash(request.form['password'], method='pbkdf2:sha256')
             query={'name':name}
             doc ={'$set':{'email':email,'name':name,"phone_no":phone_no,"password":hash_pass}}
-            mongo.db.user.update_one(query,doc,upsert=True)
+            db.user.update_one(query,doc,upsert=True)
             # mongo.db.user.insert_one({"name":name,"phone_no":phone_no,"email":email,"password":hash_pass})
             return render_template('home.html')
         else:
@@ -41,7 +50,7 @@ def login():
 @app.route('/dashboard',methods=['GET','POST'])
 def dashboard():
     if request.method=="POST":
-        user = mongo.db.user
+        user = db.user
         login_email = user.find_one({'email' : request.form['email']})
         
         # email = user.find_one({'name' : name})
@@ -77,7 +86,7 @@ def launchblog():
         data = {'label': title, 'content': content}
         query={'email':email}
         doc ={'$push':{'blog':data}}
-        mongo.db.user.update_one(query,doc,upsert=True)
+        db.user.update_one(query,doc,upsert=True)
     return render_template('dashboard.html',name=name)
 
 
@@ -91,8 +100,8 @@ def blog():
 
 @app.route('/viewblog',methods=['GET','POST'])
 def viewblog():
-    user=mongo.db.user.find_one({'email':session["email"]})
-    result = mongo.db.user.find_one({'email':session["email"], 'blog': {'$exists': True}})
+    user=db.user.find_one({'email':session["email"]})
+    result = db.user.find_one({'email':session["email"], 'blog': {'$exists': True}})
     if result:
         blog=user['blog']
         return render_template('viewblog.html',blogs=blog)
