@@ -20,6 +20,28 @@
             padding: 0; /* Remove default padding */
         }
         
+        .navbar {
+        background-color: #333;
+        color: #fff;
+        padding: 10px 0;
+        text-align: center;
+        }
+        .bg a
+        {
+        color:white;
+        text-decoration: none;
+        }
+        .navbar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .navbar ul li {
+            display: inline;
+            margin-right: 20px;
+            text-align: justify;
+        }
+
         .bg-image {
             position: absolute; /* Set background image position to absolute */
             top: 0;
@@ -35,7 +57,7 @@
             align-items: center;
             margin-top: 7%;
         }
-
+        
         .form1 {
             width: 400px;
             /* Set width for form container */
@@ -109,6 +131,14 @@
 </head>
 
 <body>
+    <div class="navbar">
+        <ul class="bg">
+            <li><a href="/register">REGISTER</a></li>
+            <li><a href="/login">LOGIN</a></li>
+            <li><a href="/about">ABOUT US</a></li>
+            <li><a href="/">HOME</a></li>
+        </ul>
+    </div>
    
   
     <div class="form"> 
