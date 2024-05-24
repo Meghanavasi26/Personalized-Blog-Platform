@@ -34,13 +34,17 @@
             /* color: aliceblue; */
             border: none;
             cursor: pointer;
-            padding: 10px;
-            border-radius: 5px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: large ;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
         }
 
 
         h2 {
             font-size: 50px;
+            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         }
         .logout-btn button {
             position: absolute;
@@ -49,8 +53,10 @@
             background-color: rgba(236, 142, 197, 0.517);
             border: none;
             cursor: pointer;
-            padding: 10px;
-            border-radius: 5px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: large;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         }
     </style>
 </head>
@@ -58,14 +64,14 @@
     <h2>Welcome {{name}}</h2>
     <div class="button-container">
         <a href="/blog">
-            <button type="button">Start Your blog</button>
+            <button type="button"><b>Start Your blog</b></button>
         </a>
         <a href="/viewblog">
-            <button type="button">View Your blog</button>
+            <button type="button"><b>View Your blog</b></button>
         </a>
     </div>
     <a href="/" class="logout-btn"> <!-- Add the 'logout-btn' class here -->
-        <button type="button">Logout</button>
+        <button type="button"><b>Logout</b></button>
     </a>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
